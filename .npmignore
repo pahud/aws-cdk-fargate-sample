@@ -16,6 +16,10 @@ dist
 /.eslintrc.json
 cdk.out/
 .cdk.staging/
+cdk.out
+cdk.context.json
+images
+yarn-error.log
 !/lib
 !/lib/**/*.js
 !/lib/**/*.d.ts

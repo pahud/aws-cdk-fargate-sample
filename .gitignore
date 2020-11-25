@@ -44,6 +44,10 @@ junit.xml
 cdk.out/
 .cdk.staging/
 .parcel-cache/
+cdk.out
+cdk.context.json
+images
+yarn-error.log
 !/package.json
 !/.npmignore
 !/LICENSE
@@ -53,10 +57,10 @@ cdk.out/
 !/test
 !/.github/workflows/build.yml
 !/.mergify.yml
-!/.github/dependabot.yml
 !/.github/pull_request_template.md
 !/tsconfig.json
 !/src
 !/tsconfig.jest.json
 !/.eslintrc.json
 !/cdk.json
+!/.github/workflows/projenyarnupgrade.yml
