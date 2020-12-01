@@ -64,3 +64,4 @@ yarn-error.log
 !/tsconfig.jest.json
 !/.eslintrc.json
 !/cdk.json
+!/.github/workflows/projenyarnupgrade.yml
