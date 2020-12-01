@@ -1,7 +1,7 @@
-import { App, Construct, Stack, StackProps } from '@aws-cdk/core';
 import * as ec2 from '@aws-cdk/aws-ec2';
 import * as ecs from '@aws-cdk/aws-ecs';
 import * as patterns from '@aws-cdk/aws-ecs-patterns';
+import { App, Construct, Stack, StackProps } from '@aws-cdk/core';
 
 
 export interface FargateServiceProps {
@@ -9,26 +9,26 @@ export interface FargateServiceProps {
 }
 
 export class FargateService extends Construct {
-  constructor(scope: Construct, id: string, props: FargateServiceProps = {} ){
-    super(scope, id)
+  constructor(scope: Construct, id: string, props: FargateServiceProps = {} ) {
+    super(scope, id);
 
     const vpc = props.vpc ?? new ec2.Vpc(this, 'Vpc', { natGateways: 1 });
-    const cluster = new ecs.Cluster(this, 'Cluster', { vpc })
+    const cluster = new ecs.Cluster(this, 'Cluster', { vpc });
     const taskDefinition = new ecs.FargateTaskDefinition(this, 'Task', {
       cpu: 256,
       memoryLimitMiB: 512,
-    })
-    const flask = taskDefinition.addContainer('flask', { 
+    });
+    const flask = taskDefinition.addContainer('flask', {
       image: ecs.ContainerImage.fromRegistry('pahud/flask-docker-sample:latest'),
       environment: {
         PLATFORM: 'AWS Fargate',
-      }
-    })
-    flask.addPortMappings({ containerPort: 80 })
+      },
+    });
+    flask.addPortMappings({ containerPort: 80 });
     new patterns.ApplicationLoadBalancedFargateService(this, 'Service', {
       taskDefinition,
-      cluster
-    })
+      cluster,
+    });
   }
 }
 
@@ -36,11 +36,9 @@ export class MyStack extends Stack {
   constructor(scope: Construct, id: string, props: StackProps = {}) {
     super(scope, id, props);
 
-    // force use_default_vpc=1
-    this.node.setContext('use_default_vpc', '1');
     new FargateService(this, 'FargateService', {
       vpc: getOrCreateVpc(this),
-    })
+    });
   }
 }
 
@@ -61,9 +59,10 @@ const devEnv = {
 
 const app = new App();
 
-const stackName = app.node.tryGetContext('stackName') || 'cdk-fargate-service-demo-stack'
+const stackName = app.node.tryGetContext('stackName') || 'cdk-fargate-service-demo-stack';
 
 new MyStack(app, stackName, { env: devEnv });
 // new MyStack(app, 'my-stack-prod', { env: prodEnv });
 
 app.synth();
+
