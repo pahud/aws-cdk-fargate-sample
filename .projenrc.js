@@ -11,6 +11,7 @@ const project = new AwsCdkTypeScriptApp({
     '@aws-cdk/aws-ec2',
   ],
   dependabot: false,
+  defaultReleaseBranch: 'main',
 });
 
 
